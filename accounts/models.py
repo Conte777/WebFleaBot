@@ -1,10 +1,18 @@
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager, User
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import send_mail
 from django.conf import settings
+
+
+class CustomUserManager(UserManager):
+    def _create_user(self, username, email, password, **extra_fields):
+        user = super()._create_user(username, email, password, **extra_fields)
+        for i in range(1, 7):
+            SendModel.objects.create(user=user, number_of_form=i, form_name=str(i))
+        return user
 
 
 class UserModel(AbstractBaseUser, PermissionsMixin):
@@ -31,7 +39,7 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
     is_send_active = models.BooleanField(_("send status"), default=False)
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
 
-    objects = UserManager()
+    objects = CustomUserManager()
 
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "username"
