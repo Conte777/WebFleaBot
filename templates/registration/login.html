@@ -1,7 +1,7 @@
 {% extends 'main/layout.html' %}
 
 {% block titel %}
-    <title>Вход в аккаунт</title>
+    Вход в аккаунт
 {% endblock %}
 
 {% block content %}
@@ -13,16 +13,7 @@
     <form method="post">
         {% csrf_token %}
         <table>
-
-            <tr>
-                <td>{{ form.username.label_tag }}</td>
-                <td>{{ form.username }}</td>
-            </tr>
-
-            <tr>
-                <td>{{ form.password.label_tag }}</td>
-                <td>{{ form.password }}</td>
-            </tr>
+            {{ form.as_table }}
         </table>
 
         <input type="submit" value="login"/>
