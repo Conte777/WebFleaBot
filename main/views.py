@@ -8,4 +8,12 @@ def about(request):
     return render(request, "main/about.html")
 
 def contact(request):
-    return render(request, "main/contact.html")
+    data = {
+        "contacts": {
+            "Discord": "Conte#8928",
+            "Telegram": "@Koleso7777",
+            "VK": "@koleso777",
+            "Телефон": "+79153298361",
+        },
+    }
+    return render(request, "main/contact.html", context=data)
