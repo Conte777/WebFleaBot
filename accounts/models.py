@@ -1,10 +1,18 @@
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import UserManager as BaseUserManager
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import send_mail
 from django.conf import settings
+
+class UserManager(BaseUserManager):
+    def _create_user(self, username, email, password, **extra_fields):
+        user = super()._create_user(username, email, password, **extra_fields)
+        for i in range(1, 7):
+            SendModel.objects.create(user=user, number_of_form=i, form_name=str(i))
+        return user
 
 
 class UserModel(AbstractBaseUser, PermissionsMixin):
@@ -22,7 +30,7 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
             "unique": _("A user with that username already exists."),
         },
     )
-    email = models.EmailField(_("email address"), blank=True, unique=True)
+    email = models.EmailField(_("email address"), unique=True)
     is_staff = models.BooleanField(
         _("staff status"),
         default=False,
@@ -55,11 +63,6 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
-
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        for i in range(1, 7):
-            SendModel.objects.create(user=self, number_of_form=i, form_name=str(i))
 
 
 class SendModel(models.Model):

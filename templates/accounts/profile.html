@@ -7,7 +7,7 @@
 {% block content %}
     <h1 class="heading">Профиль</h1>
     {% if user.is_authenticated %}
-        <p>Привет {{ user.username }}</p>
+        <p>Привет, {{ user.username }}</p>
         <a href="{% url 'logout' %}" class="button">Выход из аккаунта</a>
     {% else %}
         <p>Вам нужно авторизоваться</p>

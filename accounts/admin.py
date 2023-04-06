@@ -20,6 +20,12 @@ class UserAdmin(BaseUserAdmin):
         ('Personal info', {'fields': ('is_send_active', 'date_joined',)}),
         (_('Permissions'), {'fields': ('is_superuser', 'is_staff',)}),
     )
+    add_fieldsets =( 
+       (None, { 
+            'classes':('wide',), 
+            'fields':('username', 'email', 'password1', 'password2', 'is_staff', 'is_superuser', 'is_send_active')} 
+        ), 
+    ) 
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     search_fields = ('email', 'username')

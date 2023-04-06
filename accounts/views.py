@@ -4,8 +4,6 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from .forms import UserCreationForm
-from .models import SendModel
-
 
 @login_required
 def profile_view(request):
