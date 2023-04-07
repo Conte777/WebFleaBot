@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from .forms import UserCreationForm
 
+
 @login_required
 def profile_view(request):
     return render(request, "accounts/profile.html")
