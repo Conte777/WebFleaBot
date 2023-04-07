@@ -11,7 +11,7 @@ class UserCreationForm(BaseUserCreationForm):
     
     def save(self, commit=True):
         user = super().save()
-        for i in range(1, 7):
+        for i in range(1, user.number_sending_models + 1):
             SendModel.objects.create(user=user, number_of_form=i, form_name=str(i))
         return user
 
