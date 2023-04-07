@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
-from .forms import SendForm
 
 
 class SendModel(models.Model):
@@ -13,8 +12,6 @@ class SendModel(models.Model):
     channel_id = models.CharField(max_length=25)
     urls_pictures = models.TextField(max_length=500)
     text = models.TextField(max_length=5000)
-
-    objects = SendForm()
 
     class Meta:
         verbose_name = _("form to send")

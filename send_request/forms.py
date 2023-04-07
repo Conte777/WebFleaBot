@@ -1,8 +1,8 @@
 from django.forms import ModelForm
-from .models import SendModel
+from . import models
 
 
 class SendForm(ModelForm):
     class Meta:
-        model = SendModel
+        model = models.SendModel
         fields = ['form_name', 'token', 'channel_id', 'urls_pictures', 'text']
