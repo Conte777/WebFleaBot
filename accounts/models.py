@@ -11,9 +11,7 @@ from send_request.models import SendModel
 class UserManager(BaseUserManager):
     def _create_user(self, username, email, password, **extra_fields):
         user = super()._create_user(username, email, password, **extra_fields)
-        for i in range(1, user.number_sending_models + 1):
-            SendModel.objects.create(
-                user=user, number_of_form=i, form_name=str(i))
+        user.create_sendmodels()
         return user
 
 
@@ -68,3 +66,8 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+    def create_sendmodels(self):
+        for i in range(1, self.number_sending_models + 1):
+            SendModel.objects.create(
+                user=self, form_name=str(i))

@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import SendModel, URLarray
 
-# Register your models here.
+admin.site.register(SendModel)
+admin.site.register(URLarray)

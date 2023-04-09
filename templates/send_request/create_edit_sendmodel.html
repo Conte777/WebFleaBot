@@ -1,0 +1,22 @@
+{% extends 'main/layout.html' %}
+
+{% block titel %}
+    Вход в аккаунт
+{% endblock %}
+
+{% block content %}
+
+    {% comment %} {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+    {% endif %} {% endcomment %}
+
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+
+        <input type="submit" value="Отправить форму"/>
+    </form>
+
+{% endblock %}

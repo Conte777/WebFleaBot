@@ -9,7 +9,7 @@
     {% if user.is_authenticated %}
         <p>Введите информацию в формы и запустите отправку</p>
         {% for el in data %}
-            <button class="btn btn-success" onclick="location.href=''">{{el.form_name}}</button>
+            <button class="btn btn-success" onclick="location.href='{% url 'sending_model' model_id=el.id %}'">{{ el.form_name }}</button>
         {% endfor %}
     {% else %}
         <p>Вам надо авторизоваться, чтобы воспользоваться сервисом. <a href="{% url 'login' %}" class="button">Авторизация</a></p>

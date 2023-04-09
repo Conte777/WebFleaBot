@@ -6,16 +6,26 @@ from django.utils.translation import gettext_lazy as _
 class SendModel(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
-    number_of_form = models.PositiveSmallIntegerField()
-    form_name = models.CharField(max_length=50)
-    token = models.CharField(max_length=255)
-    channel_id = models.CharField(max_length=25)
-    urls_pictures = models.TextField(max_length=500)
-    text = models.TextField(max_length=5000)
+    form_name = models.CharField(_("form name"), max_length=50)
+    token = models.CharField(_("token of discord account"), max_length=255)
+    channel_id = models.CharField(_("ID of discord channel"), max_length=25)
+    text = models.TextField(_("text for messege"), max_length=5000)
 
     class Meta:
         verbose_name = _("form to send")
         verbose_name_plural = _("forms to send")
 
     def __str__(self):
-        return f'{self.number_of_form} {self.user}'
+        return f'{self.id} {self.user}'
+
+
+class URLarray(models.Model):
+    url = models.URLField(_("URL of picture"))
+    send = models.ForeignKey(SendModel, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.url
+
+    class Meta:
+        verbose_name = _("URL for send model")
+        verbose_name_plural = _("URLs for send model")

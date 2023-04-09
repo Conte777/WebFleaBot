@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import SendModel, UserModel
+from .models import UserModel
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .forms import UserCreationForm, UserChangeForm
@@ -34,5 +34,4 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ()
 
 
-admin.site.register(SendModel)
 admin.site.register(UserModel, UserAdmin)

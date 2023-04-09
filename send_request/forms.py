@@ -5,4 +5,4 @@ from . import models
 class SendForm(ModelForm):
     class Meta:
         model = models.SendModel
-        fields = ['form_name', 'token', 'channel_id', 'urls_pictures', 'text']
+        fields = ['form_name', 'token', 'channel_id', 'text']
