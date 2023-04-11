@@ -11,6 +11,8 @@ class SendModel(models.Model):
     channel_id = models.CharField(_("ID of discord channel"), max_length=25)
     text = models.TextField(_("text for messege"), max_length=5000)
 
+    MAX_URLS = 3
+
     class Meta:
         verbose_name = _("form to send")
         verbose_name_plural = _("forms to send")
@@ -20,8 +22,8 @@ class SendModel(models.Model):
 
 
 class URLarray(models.Model):
-    url = models.URLField(_("URL of picture"))
-    send = models.ForeignKey(SendModel, on_delete=models.CASCADE)
+    url = models.URLField(_("URL of picture"), blank=True)
+    sendmodel = models.ForeignKey(SendModel, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.url

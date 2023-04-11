@@ -13,7 +13,11 @@
     <form method="post">
         {% csrf_token %}
         <table>
-            {{ form.as_table }}
+            {{ form_send.as_table }}
+            {% for el in forms_urls %}
+                {{ el.as_table }}
+            {% endfor %}
+            {% comment %} {{ forms_urls }} {% endcomment %}
         </table>
 
         <input type="submit" value="Отправить форму"/>
