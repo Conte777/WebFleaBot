@@ -22,11 +22,17 @@ class SendModel(models.Model):
 
 
 class URLarray(models.Model):
-    url = models.URLField(_("URL of picture"), blank=True)
+    url = models.URLField(_("URL of picture"))
     sendmodel = models.ForeignKey(SendModel, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.url
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if self.url != '':
+            return super().save(force_insert=False, force_update=False, using=None, update_fields=None)
+        else:
+            self.delete()
 
     class Meta:
         verbose_name = _("URL for send model")

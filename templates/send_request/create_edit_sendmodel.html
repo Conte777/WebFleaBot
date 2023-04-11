@@ -14,10 +14,10 @@
         {% csrf_token %}
         <table>
             {{ form_send.as_table }}
-            {% for el in forms_urls %}
+            {% comment %} {% for el in forms_urls %}
                 {{ el.as_table }}
-            {% endfor %}
-            {% comment %} {{ forms_urls }} {% endcomment %}
+            {% endfor %} {% endcomment %}
+            {{ forms_urls.as_table }}
         </table>
 
         <input type="submit" value="Отправить форму"/>
