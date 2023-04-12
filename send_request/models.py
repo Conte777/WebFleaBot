@@ -30,7 +30,7 @@ class URLarray(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if self.url != '':
-            return super().save(force_insert=False, force_update=False, using=None, update_fields=None)
+            return super().save(force_insert, force_update, using, update_fields)
         else:
             self.delete()
 
