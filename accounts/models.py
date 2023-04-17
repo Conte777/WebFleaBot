@@ -33,6 +33,7 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
     number_sending_models = models.PositiveSmallIntegerField(
         _("number of sending models"), default=6)
+    send_delay = models.PositiveIntegerField(_('sanding delay'), default=60)
 
     objects = UserManager()
 

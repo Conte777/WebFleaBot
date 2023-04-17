@@ -1,14 +1,14 @@
-# from django.http import HttpResponse
 from django.http import HttpRequest
 from django.shortcuts import render
-from accounts.models import SendModel
+from accounts.forms import ToggleSendForm
+from send_request.models import SendModel
 
 def index(request: HttpRequest):
-    # print(SendModel.objects.filter(user=request.user))
-    data = {"data": []}
+    context = {"data": None, "form": None}
     if request.user.is_authenticated:
-        data["data"] = request.user.sendmodel_set.all().values()
-    return render(request, "main/home.html", context=data)
+        context["data"] = request.user.sendmodel_set.all().values()
+        context["form"] = ToggleSendForm(instance=request.user)
+    return render(request, "main/home.html", context=context)
 
 def about(request):
     return render(request, "main/about.html")

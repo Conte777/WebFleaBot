@@ -11,6 +11,10 @@
         {% for el in data %}
             <button class="btn btn-success" onclick="location.href='{% url 'sending_model' model_id=el.id %}'">{{ el.form_name }}</button>
         {% endfor %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_table }}
+        </form>
     {% else %}
         <p>Вам надо авторизоваться, чтобы воспользоваться сервисом. <a href="{% url 'login' %}" class="button">Авторизация</a></p>
     {% endif %}
