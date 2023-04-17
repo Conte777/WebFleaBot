@@ -1,18 +1,18 @@
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from django.contrib.auth.models import UserManager as BaseUserManager
+from django.contrib.auth.models import UserManager
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import send_mail
 from send_request.models import SendModel
 
 
-class UserManager(BaseUserManager):
-    def _create_user(self, username, email, password, **extra_fields):
-        user = super()._create_user(username, email, password, **extra_fields)
-        user.create_sendmodels()
-        return user
+# class UserManager(BaseUserManager):
+#     def _create_user(self, username, email, password, **extra_fields):
+#         user = super()._create_user(username, email, password, **extra_fields)
+#         user.create_sendmodels()
+#         return user
 
 
 class UserModel(AbstractBaseUser, PermissionsMixin):
@@ -67,7 +67,7 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
-    def create_sendmodels(self):
-        for i in range(1, self.number_sending_models + 1):
-            SendModel.objects.create(
-                user=self, form_name=str(i))
+    # def create_sendmodels(self):
+    #     for i in range(1, self.number_sending_models + 1):
+    #         SendModel.objects.create(
+    #             user=self, form_name=str(i))
